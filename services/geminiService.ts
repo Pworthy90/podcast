@@ -648,6 +648,66 @@ export const geminiService = {
     }
   },
 
+  // Bible Study Planner
+  async generateBibleStudyPlan(topic: string, planType: string, sessionCount: number) {
+    try {
+      const ai = getAi();
+      const response = await ai.models.generateContent({
+        model: MODEL_THINKING,
+        contents: `${CHRISTIAN_CONTEXT} Create a structured Bible study reading plan.
+        Topic/Book: "${topic}"
+        Type: ${planType} (Book = sequential chapters/sections; Topical = thematically grouped verses; Custom = flexible mix)
+        Number of study sessions: ${sessionCount}
+
+        Return a JSON object:
+        {
+          "description": "Brief 1-2 sentence description of what this plan covers and who it's for",
+          "passages": [
+            { "reference": "Book Chapter:Verses", "scheduledDate": "" }
+          ]
+        }
+
+        Ensure all scripture references are accurate. For a Book plan provide sequential passages. For Topical, group thematically. Provide exactly ${sessionCount} passages.`,
+        config: {
+          thinkingConfig: { thinkingBudget: 2048 },
+          responseMimeType: 'application/json'
+        }
+      });
+      return JSON.parse(cleanJson(response.text || '{}'));
+    } catch (error) {
+      console.error("Error generating study plan:", error);
+      return null;
+    }
+  },
+
+  async generateStudyNotes(passage: string) {
+    try {
+      const ai = getAi();
+      const response = await ai.models.generateContent({
+        model: MODEL_THINKING,
+        contents: `${CHRISTIAN_CONTEXT} Create comprehensive Bible study notes for the passage: "${passage}".
+
+        Return a JSON object:
+        {
+          "passage": "${passage}",
+          "theme": "Central theme in 5-8 words",
+          "devotional": "A 250-300 word devotional reflection on this passage that is warm, personal, and practically applicable",
+          "discussionQuestions": ["Observation question?", "Interpretation question?", "Application question?", "Personal reflection question?"],
+          "prayer": "A short heartfelt closing prayer (3-5 sentences) based on the passage's themes",
+          "keyVerses": ["Most important verse from the passage", "1-2 cross-reference verses from other parts of Scripture"]
+        }`,
+        config: {
+          thinkingConfig: { thinkingBudget: 3000 },
+          responseMimeType: 'application/json'
+        }
+      });
+      return JSON.parse(cleanJson(response.text || '{}'));
+    } catch (error) {
+      console.error("Error generating study notes:", error);
+      return null;
+    }
+  },
+
   async auditRSSFeed(xmlSnippet: string) {
     try {
       const ai = getAi();

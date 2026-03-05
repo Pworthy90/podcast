@@ -10,7 +10,8 @@ export enum ViewState {
   CONNECTIONS = 'CONNECTIONS',
   COMMUNITY = 'COMMUNITY',
   GUESTS = 'GUESTS',
-  POST_PROD = 'POST_PROD'
+  POST_PROD = 'POST_PROD',
+  BIBLE_STUDY = 'BIBLE_STUDY'
 }
 
 export enum IdeaTab {
@@ -170,4 +171,39 @@ export interface StudioMarker {
   time: number; // seconds
   label: string;
   type: 'good' | 'bad' | 'funny' | 'edit';
+}
+
+// Bible Study Planner
+export type StudyPlanType = 'Book' | 'Topical' | 'Custom';
+
+export interface StudyPassage {
+  id: string;
+  reference: string;
+  completed: boolean;
+  scheduledDate?: string;
+}
+
+export interface StudyPlan {
+  id: string;
+  title: string;
+  description: string;
+  type: StudyPlanType;
+  passages: StudyPassage[];
+  createdAt: string;
+}
+
+export interface StudyNote {
+  passage: string;
+  theme: string;
+  devotional: string;
+  discussionQuestions: string[];
+  prayer: string;
+  keyVerses: string[];
+}
+
+export interface JournalEntry {
+  id: string;
+  date: string;
+  passage: string;
+  content: string;
 }

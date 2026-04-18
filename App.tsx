@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  Layout, Mic, Users, DollarSign, BarChart2, Link as LinkIcon, 
-  Sparkles, Calendar, ChevronRight, Radio, Scissors, MessageCircle, UserPlus, Sun, Moon, Menu, X, Mail
+import {
+  Layout, Mic, Users, DollarSign, BarChart2, Link as LinkIcon,
+  Sparkles, Calendar, ChevronRight, Radio, Scissors, MessageCircle, UserPlus, Sun, Moon, Menu, X, Mail, BookOpen
 } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
@@ -16,6 +16,7 @@ import { SeasonPlanner } from './components/SeasonPlanner';
 import { Guests } from './components/Guests';
 import { Sponsorships } from './components/Sponsorships';
 import { Connections } from './components/Connections';
+import { BibleStudy } from './components/BibleStudy';
 import { MOCK_SEASONS, ANALYTICS_DATA, MOCK_PRAYER_REQUESTS } from './mockData';
 
 export default function App() {
@@ -84,6 +85,7 @@ export default function App() {
             { id: ViewState.ANALYTICS, icon: BarChart2, label: 'Analytics' },
             { id: ViewState.COMMUNITY, icon: MessageCircle, label: 'Community Hub' },
             { id: ViewState.CONNECTIONS, icon: LinkIcon, label: 'Connections' },
+            { id: ViewState.BIBLE_STUDY, icon: BookOpen, label: 'Bible Study' },
           ].map((item) => (
             <button
               key={item.id}
@@ -238,6 +240,7 @@ export default function App() {
           {view === ViewState.GUESTS && <Guests />}
           {view === ViewState.SPONSORSHIPS && <Sponsorships />}
           {view === ViewState.CONNECTIONS && <Connections />}
+          {view === ViewState.BIBLE_STUDY && <BibleStudy />}
 
           {/* Fallback */}
           {!Object.values(ViewState).includes(view) && (

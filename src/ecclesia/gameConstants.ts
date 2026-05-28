@@ -18,7 +18,7 @@ export const ERA_THEMES: Record<import('./gameTypes').EraId, EraTheme> = {
     badgeBg: '#6b1010',
     badgeText: '#ffcfcf',
     progressFill: 'linear-gradient(90deg, #c9960c, #8b1a1a)',
-    lifetimeKIRequired: 5000,
+    lifetimeKIRequired: 0,
   },
   monastic: {
     id: 'monastic',
@@ -35,7 +35,7 @@ export const ERA_THEMES: Record<import('./gameTypes').EraId, EraTheme> = {
     badgeBg: '#1e3a6a',
     badgeText: '#b0ccf8',
     progressFill: 'linear-gradient(90deg, #4a78c0, #8090c0)',
-    lifetimeKIRequired: 50000,
+    lifetimeKIRequired: 5000,
   },
   reformation: {
     id: 'reformation',
@@ -52,7 +52,7 @@ export const ERA_THEMES: Record<import('./gameTypes').EraId, EraTheme> = {
     badgeBg: '#1c4a1c',
     badgeText: '#a0d890',
     progressFill: 'linear-gradient(90deg, #c8a020, #2d8a2d)',
-    lifetimeKIRequired: 500000,
+    lifetimeKIRequired: 50000,
   },
   modern: {
     id: 'modern',

@@ -74,16 +74,9 @@ export function calcUpgradePassive(upgradeId: UpgradeId, qty: number, state: Gam
 }
 
 export function resolveEra(lifetimeKI: number): EraId {
-  const eras = [...ERA_ORDER].reverse();
-  for (const eraId of eras) {
-    const theme = ERA_THEMES[eraId];
-    if (theme.lifetimeKIRequired === null || lifetimeKI >= theme.lifetimeKIRequired) {
-      // modern has no requirement — it's the fallthrough last era
-      if (eraId === 'modern' && lifetimeKI >= 500000) return 'modern';
-      if (eraId === 'reformation' && lifetimeKI >= 50000) return 'reformation';
-      if (eraId === 'monastic' && lifetimeKI >= 5000) return 'monastic';
-    }
-  }
+  if (lifetimeKI >= 500000) return 'modern';
+  if (lifetimeKI >= 50000) return 'reformation';
+  if (lifetimeKI >= 5000) return 'monastic';
   return 'apostolic';
 }
 
@@ -92,9 +85,9 @@ export function eraIndex(eraId: EraId): number {
 }
 
 export function isEraUnlocked(eraId: EraId, lifetimeKI: number): boolean {
-  const theme = ERA_THEMES[eraId];
-  if (theme.lifetimeKIRequired === null) return lifetimeKI >= 500000;
-  return lifetimeKI >= theme.lifetimeKIRequired;
+  const req = ERA_THEMES[eraId].lifetimeKIRequired;
+  if (req === null) return lifetimeKI >= 500000;
+  return lifetimeKI >= req;
 }
 
 export function nextEraProgress(currentEra: EraId, lifetimeKI: number): { pct: number; nextName: string | null; needed: number } {
